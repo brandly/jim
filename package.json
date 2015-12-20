@@ -17,7 +17,8 @@
     "hubot-rules": "0.1.1",
     "hubot-scripts": "2.16.2",
     "hubot-shipit": "0.2.0",
-    "hubot-telegram": "0.0.8"
+    "hubot-telegram": "0.0.8",
+    "nba": "1.2.0"
   },
   "engines": {
     "node": "0.10.x"
