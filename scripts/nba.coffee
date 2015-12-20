@@ -1,5 +1,4 @@
 nba = require 'nba'
-contains = require 'lodash.contains'
 
 module.exports = (robot) ->
 
