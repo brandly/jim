@@ -30,6 +30,6 @@ module.exports = (robot) ->
       info = data[0]
 
       res.reply """
-        #{info.teamName} #{info.w}-#{info.l}
+        #{info.teamName} (#{info.w}-#{info.l})
         #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
       """
