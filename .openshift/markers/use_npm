@@ -1,0 +1,2 @@
+#!/bin/bash
+# include this file to make sure it starts by npm start
