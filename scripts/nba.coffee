@@ -39,9 +39,10 @@ module.exports = (robot) ->
 
     getScores (err, scores) ->
       response = scores.map (game) ->
+        context = if game.hasBegun then "#{game.away.score} - #{game.home.score}" else game.series
         """
           #{game.away.abbrev} - #{game.home.abbrev}
-          #{game.status} | #{game.away.score} - #{game.home.score}
+          #{game.status} | #{context}
         """
       res.reply response.join('\n\n')
 
@@ -58,9 +59,11 @@ getScores = (cb) ->
 
     formattedScores = data.gs.g.map (game) ->
       {
-        status: if game.stt is 'Final' then 'Final' else "#{game.cl} - #{game.stt}"
+        hasBegun: !!game.cl
+        status: buildStatus(game)
         away: buildTeam(game.v),
-        home: buildTeam(game.h)
+        home: buildTeam(game.h),
+        series: game.lm.seri
       }
 
     cb null, formattedScores
@@ -73,3 +76,11 @@ buildTeam = (team) ->
     abbrev: team.ta,
     score: team.s
   }
+
+buildStatus = (game) ->
+  if game.stt is 'Final'
+    return 'Final'
+  else if not game.cl?
+    return game.stt
+  else
+    return "#{game.cl} - #{game.stt}"
