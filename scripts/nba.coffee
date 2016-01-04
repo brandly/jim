@@ -48,7 +48,7 @@ module.exports = (robot) ->
     getScores (err, scores) ->
       response = scores.map (game) ->
         """
-          #{game.away.abbrev} - #{game.home.abbrev}
+          #{game.away.name} at #{game.home.name}
           #{game.status} | #{getContext(game)}
         """
       res.reply response.join('\n\n')
