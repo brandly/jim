@@ -37,12 +37,19 @@ module.exports = (robot) ->
 
   robot.respond /nba scores/, (res) ->
 
+    getContext = (game) ->
+      if game.hasBegun
+        return "#{game.away.score} - #{game.home.score}"
+      else if game.series
+        return game.series
+      else
+        return "First matchup"
+
     getScores (err, scores) ->
       response = scores.map (game) ->
-        context = if game.hasBegun then "#{game.away.score} - #{game.home.score}" else game.series
         """
           #{game.away.abbrev} - #{game.home.abbrev}
-          #{game.status} | #{context}
+          #{game.status} | #{getContext(game)}
         """
       res.reply response.join('\n\n')
 
