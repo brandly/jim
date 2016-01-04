@@ -18,7 +18,8 @@
     "hubot-scripts": "2.16.2",
     "hubot-shipit": "0.2.0",
     "hubot-telegram": "0.0.8",
-    "nba": "1.2.0"
+    "nba": "1.2.0",
+    "superagent": "1.6.1"
   },
   "engines": {
     "node": "0.10.x"
