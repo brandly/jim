@@ -25,10 +25,10 @@ module.exports = (robot) ->
         #{info.height} #{info.weight}lbs
 
         Season averages
-        #{averages.pts}pts, #{averages.ast}ast, #{averages.reb}reb in #{averages.min} minutes
+        #{displayGameData(averages)}
 
         Last game (#{lastGame.matchup})
-        #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb in #{lastGame.min} minutes
+        #{displayGameData(lastGame)}
       """
 
   robot.respond /nba team (.*)/, (res) ->
@@ -64,6 +64,9 @@ module.exports = (robot) ->
           #{game.status} | #{getContext(game)}
         """
       res.reply response.join('\n\n')
+
+displayGameData = (game) ->
+  "#{game.pts}pts, #{game.ast}ast, #{game.reb}reb in #{game.min} minutes"
 
 currentScoresUrl = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2015/scores/00_todays_scores.json'
 requestCurrentScores = (cb) ->
