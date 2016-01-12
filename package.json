@@ -5,6 +5,7 @@
   "author": "brandly <brandly13@gmail.com>",
   "description": "do cool stuff",
   "dependencies": {
+    "contra": "1.9.1",
     "hubot": "2.17.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "0.2.5",

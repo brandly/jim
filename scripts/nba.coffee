@@ -1,5 +1,6 @@
 nba = require 'nba'
 request = require 'superagent'
+contra = require 'contra'
 
 module.exports = (robot) ->
 
@@ -11,12 +12,21 @@ module.exports = (robot) ->
       res.reply "Couldn't find player with name \"#{name}\""
       return
 
-    nba.stats.playerInfo { playerId }, (err, data) ->
-      info = data.playerHeadlineStats[0]
+    contra.concurrent [
+      nba.stats.playerInfo.bind(nba.stats, { playerId }),
+      nba.stats.playerProfile.bind(nba.stats, { playerId })
+    ], (err, [playerInfo, playerProfile]) ->
+      info = playerInfo.playerHeadlineStats[0]
+      lastGame = playerProfile.gameLogs[0]
 
       res.reply """
-        #{info.playerName} averages
+        #{info.playerName}
+
+        Averages
         #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
+
+        Last game
+        #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb
       """
 
   robot.respond /nba team (.*)/, (res) ->
