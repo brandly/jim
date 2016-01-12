@@ -16,14 +16,16 @@ module.exports = (robot) ->
       nba.stats.playerInfo.bind(nba.stats, { playerId }),
       nba.stats.playerProfile.bind(nba.stats, { playerId })
     ], (err, [playerInfo, playerProfile]) ->
-      info = playerInfo.playerHeadlineStats[0]
+      info = playerInfo.commonPlayerInfo[0]
+      averages = playerProfile.overviewSeasonAvg[0]
       lastGame = playerProfile.gameLogs[0]
 
       res.reply """
-        #{info.playerName}
+        #{info.displayFirstLast}, #{info.teamName} #{info.position}
+        #{info.height} #{info.weight}lbs
 
         Season averages
-        #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
+        #{averages.pts}pts, #{averages.ast}ast, #{averages.reb}reb in #{averages.min} minutes
 
         Last game (#{lastGame.matchup})
         #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb in #{lastGame.min} minutes
