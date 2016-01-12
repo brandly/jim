@@ -25,7 +25,7 @@ module.exports = (robot) ->
         Averages
         #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
 
-        Last game
+        Last game (#{lastGame.matchup})
         #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb
       """
 
