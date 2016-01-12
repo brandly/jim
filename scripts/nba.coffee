@@ -22,11 +22,11 @@ module.exports = (robot) ->
       res.reply """
         #{info.playerName}
 
-        Averages
+        Season averages
         #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
 
         Last game (#{lastGame.matchup})
-        #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb
+        #{lastGame.pts}pts, #{lastGame.ast}ast, #{lastGame.reb}reb in #{lastGame.min} minutes
       """
 
   robot.respond /nba team (.*)/, (res) ->
