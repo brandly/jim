@@ -65,6 +65,23 @@ module.exports = (robot) ->
         """
       res.reply response.join('\n\n')
 
+  robot.respond /nba standing(s?)/, (res) ->
+    displayTeam = (t) ->
+      behind = if t.gamesBehind is '-' then '' else "(#{t.gamesBehind}GB)"
+      """
+        ##{t.seed} #{t.name} #{behind}
+        #{t.wins}W - #{t.losses}L (#{t.winPercent})
+      """
+
+    getConferenceStandings (err, conferences) ->
+      response = conferences.map (conference) ->
+        """
+          #{conference.name}
+
+          #{conference.teams.map(displayTeam).join('\n\n')}
+        """
+      res.reply response.join('\n\n\n')
+
 displayGameData = (game) ->
   "#{game.pts}pts, #{game.ast}ast, #{game.reb}reb in #{game.min} minutes"
 
@@ -106,3 +123,41 @@ buildStatus = (game) ->
     return game.stt
   else
     return "#{game.cl} - #{game.stt}"
+
+conferenceStandingsUrl = 'http://cdn.espn.go.com/core/nba/standings?xhr=1&device=desktop'
+requestConferenceStandings = (cb) ->
+  request
+    .get(conferenceStandingsUrl)
+    .end (err, res) ->
+      cb err, JSON.parse(res.text)
+
+getConferenceStandings = (cb) ->
+  requestConferenceStandings (err, data) ->
+    return cb(err, null) if err?
+
+    conferences = data.content.standings.groups.map buildConference
+    cb null, conferences
+
+buildConference = (data) ->
+  {
+    name: data.name,
+    teams: data.standings.entries.map buildTeamStanding
+  }
+
+buildTeamStanding = (data) ->
+  getStat = (stats, name) ->
+    matches = stats.filter (stat) -> stat.name is name
+    return matches[0].displayValue
+
+  { team, stats } = data
+
+  return {
+    name: team.name,
+    city: team.location,
+    seed: team.seed,
+    abbrev: team.abbreviation,
+    wins: getStat(stats, 'wins'),
+    losses: getStat(stats, 'losses'),
+    winPercent: getStat(stats, 'winPercent'),
+    gamesBehind: getStat(stats, 'gamesBehind')
+  }
