@@ -119,7 +119,7 @@ buildTeam = (team) ->
 buildStatus = (game) ->
   if game.stt is 'Final'
     return 'Final'
-  else if not game.cl?
+  else if not game.cl? or game.cl is '00:00.0'
     return game.stt
   else
     return "#{game.cl} - #{game.stt}"
