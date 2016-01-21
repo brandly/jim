@@ -57,10 +57,22 @@ module.exports = (robot) ->
       else
         return "First matchup"
 
+    getTeamNames = (game) ->
+      { away, home } = game
+      if game.isOver
+        homeTeamWon = home.score > away.score
+        if homeTeamWon
+          "#{away.name} at *#{home.name}*"
+        else
+          "*#{away.name}* at #{home.name}"
+
+      else
+        "#{away.name} at #{home.name}"
+
     getScores (err, scores) ->
       response = scores.map (game) ->
         """
-          #{game.away.name} at #{game.home.name}
+          #{getTeamNames(game)}
           #{game.status} | #{getContext(game)}
         """
       res.reply response.join('\n\n')
@@ -99,9 +111,10 @@ getScores = (cb) ->
     formattedScores = data.gs.g.map (game) ->
       {
         hasBegun: !!game.cl
+        isOver: game.stt is 'Final'
         status: buildStatus(game)
-        away: buildTeam(game.v),
-        home: buildTeam(game.h),
+        away: buildTeam(game.v)
+        home: buildTeam(game.h)
         series: game.lm.seri
       }
 
