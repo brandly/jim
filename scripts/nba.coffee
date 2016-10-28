@@ -97,7 +97,7 @@ module.exports = (robot) ->
 displayGameData = (game) ->
   "#{game.pts}pts, #{game.ast}ast, #{game.reb}reb in #{game.min} minutes"
 
-currentScoresUrl = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2015/scores/00_todays_scores.json'
+currentScoresUrl = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2016/scores/00_todays_scores.json'
 requestCurrentScores = (cb) ->
   request
     .get(currentScoresUrl)
