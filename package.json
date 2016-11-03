@@ -5,7 +5,6 @@
   "author": "brandly <brandly13@gmail.com>",
   "description": "do cool stuff",
   "dependencies": {
-    "contra": "1.9.1",
     "hubot": "2.17.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "0.2.5",
@@ -19,7 +18,7 @@
     "hubot-scripts": "2.16.2",
     "hubot-shipit": "0.2.0",
     "hubot-telegram": "0.0.8",
-    "nba": "1.2.0",
+    "nba": "3.0.0",
     "superagent": "1.6.1"
   },
   "engines": {

@@ -1,21 +1,20 @@
 nba = require 'nba'
 request = require 'superagent'
-contra = require 'contra'
 
 module.exports = (robot) ->
 
   robot.respond /nba player (.*)/, (res) ->
     name = res.match[1]
-    playerId = nba.playerIdFromName name
+    PlayerID = nba.playerIdFromName name
 
-    if not playerId?
+    if not PlayerID?
       res.reply "Couldn't find player with name \"#{name}\""
       return
 
-    contra.concurrent [
-      nba.stats.playerInfo.bind(nba.stats, { playerId }),
-      nba.stats.playerProfile.bind(nba.stats, { playerId })
-    ], (err, [playerInfo, playerProfile]) ->
+    Promise.all([
+      nba.stats.playerInfo({ PlayerID }),
+      nba.stats.playerProfile({ PlayerID })
+    ]).then ([playerInfo, playerProfile]) ->
       info = playerInfo.commonPlayerInfo[0]
       averages = playerProfile.overviewSeasonAvg[0]
       lastGame = playerProfile.gameLogs[0]
@@ -30,21 +29,31 @@ module.exports = (robot) ->
         Last game (#{lastGame.matchup})
         #{displayGameData(lastGame)}
       """
+    , (reason) ->
+      res.reply """
+        Error getting player stats
+        #{JSON.stringify reason, null, 2}
+      """
 
   robot.respond /nba team (.*)/, (res) ->
     name = res.match[1]
-    teamId = nba.teamIdFromName name
+    TeamId = nba.teamIdFromName name
 
-    if not teamId?
+    if not TeamId?
       res.reply "Couldn't find team with name \"#{name}\""
       return
 
-    nba.stats.teamStats { teamId }, (err, data) ->
+    nba.stats.teamStats({ TeamId }).then (data) ->
       info = data[0]
 
       res.reply """
         #{info.teamName} (#{info.w}-#{info.l})
         #{info.pts}pts, #{info.ast}ast, #{info.reb}reb
+      """
+    , (reason) ->
+      res.reply """
+        Error getting team stats
+        #{JSON.stringify reason, null, 2}
       """
 
   robot.respond /nba scores/, (res) ->
