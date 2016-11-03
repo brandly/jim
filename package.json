@@ -25,6 +25,6 @@
     "node": "5.3.0"
   },
   "scripts": {
-    "start": "PORT=$OPENSHIFT_NODEJS_PORT BIND_ADDRESS=$OPENSHIFT_NODEJS_IP HEROKU_URL=$OPENSHIFT_APP_DNS REDIS_URL=redis://:$REDIS_PASSWORD@$OPENSHIFT_REDIS_HOST:$OPENSHIFT_REDIS_PORT bin/hubot -a telegram"
+    "start": "bin/hubot -a telegram"
   }
 }
