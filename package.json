@@ -12,14 +12,13 @@
     "hubot-help": "0.1.2",
     "hubot-heroku-keepalive": "1.0.0",
     "hubot-maps": "0.0.2",
-    "hubot-nba": "1.2.1",
+    "hubot-nba": "1.3.0",
     "hubot-pugme": "0.1.0",
     "hubot-redis-brain": "0.0.3",
     "hubot-rules": "0.1.1",
     "hubot-scripts": "2.16.2",
     "hubot-shipit": "0.2.0",
     "hubot-telegram": "0.0.8",
-    "nba": "3.0.0",
     "superagent": "1.6.1"
   },
   "engines": {
