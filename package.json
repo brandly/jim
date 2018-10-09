@@ -18,8 +18,7 @@
     "hubot-rules": "0.1.1",
     "hubot-scripts": "2.16.2",
     "hubot-shipit": "0.2.0",
-    "hubot-telegram": "0.1.2",
-    "superagent": "1.6.1"
+    "hubot-telegram": "0.1.2"
   },
   "engines": {
     "node": "5.3.0"
