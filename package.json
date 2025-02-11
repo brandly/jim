@@ -5,19 +5,10 @@
   "author": "brandly <brandly13@gmail.com>",
   "description": "do cool stuff",
   "dependencies": {
-    "hubot": "3.3.2",
-    "hubot-diagnostics": "0.0.1",
-    "hubot-google-images": "0.2.5",
-    "hubot-google-translate": "0.2.0",
-    "hubot-help": "0.1.2",
-    "hubot-heroku-keepalive": "1.0.2",
-    "hubot-maps": "0.0.2",
-    "hubot-nba": "1.8.0",
-    "hubot-pugme": "0.1.0",
-    "hubot-redis-brain": "0.0.3",
-    "hubot-rules": "0.1.1",
+    "hubot": "4.1.0",
+    "hubot-help": "1.1.1",
+    "hubot-nba": "1.8.4",
     "hubot-scripts": "2.16.2",
-    "hubot-shipit": "0.2.0",
     "hubot-telegram": "1.2.0"
   },
   "engines": {
@@ -25,5 +16,8 @@
   },
   "scripts": {
     "start": "bin/hubot -a telegram"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "0.7.4"
   }
 }
