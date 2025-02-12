@@ -7,7 +7,7 @@
   "dependencies": {
     "hubot": "4.1.0",
     "hubot-help": "1.1.1",
-    "hubot-nba": "1.8.4",
+    "hubot-nba": "1.8.6",
     "hubot-scripts": "2.16.2",
     "hubot-telegram": "1.2.0"
   },
